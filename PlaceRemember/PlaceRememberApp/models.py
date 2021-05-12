@@ -1,9 +1,21 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Account(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    photo = models.ImageField(verbose_name='аватарка пользователя', null=True, blank=True)
+    photo = models.ImageField(verbose_name='аватарка пользователя', null=True, blank=True, upload_to='photos/')
+    avatar_link = models.URLField(verbose_name='ссылка на аватар', null = True, blank=True)
+
+    @receiver(post_save, sender=User)
+    def create_user_account(sender, instance, created, **kwargs):
+        try:
+            instance.account.save()
+        except ObjectDoesNotExist:
+            Account.objects.create(user=instance)
 
     class Meta:
         verbose_name = 'Аккаунт'

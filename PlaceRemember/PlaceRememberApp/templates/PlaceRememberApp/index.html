@@ -1,5 +1,8 @@
 {% extends 'PlaceRememberApp\base.html' %}
 
+{% load socialaccount%}
+{% providers_media_js %}
+
 {% block title %}Hello{% endblock %}
 
 {% block content %}<a href="accounts/login">Войти</a>{% endblock %}

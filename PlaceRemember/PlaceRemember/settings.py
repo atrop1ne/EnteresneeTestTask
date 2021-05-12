@@ -24,8 +24,9 @@ SECRET_KEY = 'django-insecure-+mv+0aba%jcc-r!6%)od215%1*x()*kcfh#-nnqdbs51-dgfg_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'example.com']
 
+SOCIAL_AUTH_REDIRECT = True
 
 # Application definition
 
@@ -75,6 +76,25 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PlaceRemember.wsgi.application'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'posts.views.update_user_social_data',
+    'PlaceRememberApp.pipline.get_avatar',
+    'PlaceRememberApp.pipline.update_user_social_data'
+)
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email, picture'
+}
 
 
 # Database
