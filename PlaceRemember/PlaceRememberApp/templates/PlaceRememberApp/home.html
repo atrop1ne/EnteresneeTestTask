@@ -14,5 +14,15 @@
                         </button>
                 </header>
                 <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
+                <form name="addPlaceForm" method="post">
+                        {% csrf_token %}
+                        {{form.name}}
+                        {{form.comment}}
+                        {{form.lat}}
+                        {{form.lng}}
+                        <div id="map"></div>
+                </form>
         {% endif %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsp1ggsiPdhsQTN0_Srjbaj042_IPQuA&callback=initMap"
+                type="text/javascript" async defer></script>
 {% endblock %}

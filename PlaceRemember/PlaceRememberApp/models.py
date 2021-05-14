@@ -8,7 +8,6 @@ from django.db.models.signals import post_save
 class Account(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ImageField(verbose_name='аватарка пользователя', null=True, blank=True, upload_to='photos/')
-    avatar_link = models.URLField(verbose_name='ссылка на аватар', null = True, blank=True)
 
     @receiver(post_save, sender=User)
     def create_user_account(sender, instance, created, **kwargs):
@@ -32,7 +31,8 @@ class Place(models.Model):
     name = models.CharField(verbose_name='наименование места', null=False, max_length=50)
     comment = models.TextField(verbose_name='комментарий', null=True, blank=True)
     address = models.CharField(verbose_name='адрес', null=False, max_length=60)
-    location = models.CharField(verbose_name='координаты', null=False, max_length=60)
+    lng = models.DecimalField(verbose_name='широта', max_digits=12, decimal_places=8, null=True, blank=True)
+    lat = models.DecimalField(verbose_name='долгота', max_digits=12, decimal_places=8, null=True, blank=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     class Meta:
