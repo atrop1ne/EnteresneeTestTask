@@ -31,8 +31,8 @@ class Place(models.Model):
     name = models.CharField(verbose_name='наименование места', null=False, max_length=50)
     comment = models.TextField(verbose_name='комментарий', null=True, blank=True)
     address = models.CharField(verbose_name='адрес', null=False, max_length=60)
-    lng = models.DecimalField(verbose_name='широта', max_digits=12, decimal_places=8, null=True, blank=True)
-    lat = models.DecimalField(verbose_name='долгота', max_digits=12, decimal_places=8, null=True, blank=True)
+    lng = models.DecimalField(verbose_name='широта', max_digits=30, decimal_places=25, null=True, blank=True)
+    lat = models.DecimalField(verbose_name='долгота', max_digits=30, decimal_places=25, null=True, blank=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     class Meta:

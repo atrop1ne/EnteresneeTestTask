@@ -8,19 +8,20 @@
 {% block content %}
         {% if request.user.is_authenticated %}
                 <header>
+                        <div><img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'></div>
+
                         <div class="personal_information">{{user.first_name}} {{user.last_name}}</div>
-                        <button>
-                                <a href="accounts/logout">Выйти</a>
-                        </button>
+
+                        <div><button><a href="accounts/logout">Выйти</a></button></div>
                 </header>
-                <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
-                <form name="addPlaceForm" method="post">
+                <form name="addPlaceForm" method="POST">
                         {% csrf_token %}
                         {{form.name}}
                         {{form.comment}}
                         {{form.lat}}
                         {{form.lng}}
                         <div id="map"></div>
+                        <button type="submit">Добавить место</button>
                 </form>
         {% endif %}
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsp1ggsiPdhsQTN0_Srjbaj042_IPQuA&callback=initMap"

@@ -1,4 +1,4 @@
-from .models import Place
+from .models import Account, Place
 from django.forms import ModelForm, TextInput, Textarea
 
 

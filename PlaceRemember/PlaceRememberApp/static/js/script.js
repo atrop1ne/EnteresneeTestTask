@@ -12,7 +12,6 @@ function initMap() {
     document.getElementById('id_lat').value = myLatlng.lat;
     document.getElementById('id_lng').value = myLatlng.lng;
 
-    geocoder = new google.maps.Geocoder();
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
       center: myLatlng
