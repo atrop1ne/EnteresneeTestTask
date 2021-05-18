@@ -1,0 +1,26 @@
+{% extends 'PlaceRememberApp\base.html' %}
+
+{% load socialaccount%}
+{% providers_media_js %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+        {% if request.user.is_authenticated %}
+                <div class="formContainer">
+                        <form class="placeForm" method="POST">
+                                {% csrf_token %}
+                                <div class="formDescription">Добавьте воспоминание</div>
+                                {{form.name}}
+                                {{form.comment}}
+                                {{form.lat}}
+                                {{form.lng}}
+                                <div id="map"></div>
+                                <button class="submitButton" type="submit">Сохранить</button>
+                        </form>
+                </div>
+        {% endif %}
+        <script src="static/js/script.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsp1ggsiPdhsQTN0_Srjbaj042_IPQuA&callback=initMap"
+                type="text/javascript" async defer></script>
+{% endblock %}

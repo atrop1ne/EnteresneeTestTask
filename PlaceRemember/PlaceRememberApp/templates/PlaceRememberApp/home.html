@@ -3,27 +3,46 @@
 {% load socialaccount%}
 {% providers_media_js %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{title}}{% endblock %}
 
 {% block content %}
         {% if request.user.is_authenticated %}
                 <header>
-                        <div><img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'></div>
-
-                        <div class="personal_information">{{user.first_name}} {{user.last_name}}</div>
-
-                        <div><button><a href="accounts/logout">Выйти</a></button></div>
+                        <div class="headerContent">
+                                <div class="profile">
+                                        {% if user.socialaccount_set.all.0.get_avatar_url %}
+                                                <img class="avatar" src='{{ user.socialaccount_set.all.0.get_avatar_url }}'>
+                                        {% else %}
+                                                {%if photo %}
+                                                        <div>photo</div>
+                                                {%else%}
+                                                        <img class="avatar" src='https://iupac.org/wp-content/uploads/2018/05/default-avatar.png'>
+                                                {% endif %}
+                                        {% endif %}
+                                        <div class="personal_information">
+                                                <p>{{user.first_name}}</p> 
+                                                <p>{{user.last_name}}</p>
+                                        </div>
+                                </div>
+                                
+                                <button class="addPlaceButton"><a href="placeform">Добавить воспоминание</a>
+                                <button class="logoutButton"><a href="accounts/logout">Выйти</a></button>
+                        </div>
                 </header>
-                <form name="addPlaceForm" method="POST">
-                        {% csrf_token %}
-                        {{form.name}}
-                        {{form.comment}}
-                        {{form.lat}}
-                        {{form.lng}}
-                        <div id="map"></div>
-                        <button type="submit">Добавить место</button>
-                </form>
+                {% if places%}
+                        <div class="placesContainer">
+                                {%for p in places%}
+                                        <figure class="place">
+                                                <h3>{{p.name}}</h3>
+                                                <figcaption>{{p.comment}}</figcaption>
+                                                <a href="edit/{{p.id}}">Изменить</a>
+                                        </figure>
+                                {% endfor %}
+                        </div>
+                {% else %}
+                        <div class="notification">
+                                <p>У вас нет ни одного воспоминания</p>
+                        </div>
+                {% endif %}
         {% endif %}
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsp1ggsiPdhsQTN0_Srjbaj042_IPQuA&callback=initMap"
-                type="text/javascript" async defer></script>
 {% endblock %}

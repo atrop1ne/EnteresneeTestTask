@@ -2,35 +2,179 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Open Sans,Helvetica,Arial,sans-serif;
+}
+
+a{
+    text-decoration: none;
 }
 
 header{
     display: flex;
+    position: fixed;
+    width: 100%;
+    background-color: #b71c1c;
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    min-height: 50px;
 }
 
-header div{
-    display: inline-block;
+.headerContent{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr 5fr 5fr 5fr 1fr;
+}
+
+.profile{
+    grid-column: 2/2;
+    display: flex;
+    align-items: center;
+}
+
+.profile .personal_information{
+    color: rgb(240, 240, 240);
+    font-size: 16px;
+    display:  inline-block;
 }
 
 .avatar{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.personal_information p{
+    margin: 0;
+}
+
+.logoutButton{
+    justify-self: end;
+}
+
+.placesContainer{
+    padding: 90px 10px;
+    background-color: white;
+    padding-bottom: 0;
+}
+
+.place{
+    padding: 5px;
+    display: inline-block;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    font-size: 16px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.place h3{
+    font-size: 20px;
+}
+
+.notification{
+    padding-top: 25%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification p{
+    color: #b71c1c;
+    font-size: 30px;
+}
+
+.formContainer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeForm{
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 1fr 3fr 15fr 1fr;
+    text-align: center;
+    padding: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    width: 40%;
+    height: 95%;
+}
+
+.form-control{
+    text-decoration: none;
+    font-size: 20px;
+    display: inline;
+    margin: 5px 0;
 }
 
 #map{
-    display: inline-block;
-    width: 100%;
-    height: 500px;
+    position: relative;
+    border-radius: 10px;
+    margin: 10px 0;
 }
 
 #id_lat{
+    position: absolute;
     visibility: hidden;
 }
 
 #id_lng{
+    position: absolute;
     visibility: hidden;
+}
+
+button{
+    max-width: 300px;
+    border: none;
+    font-size: 12px;
+    line-height: 1.417;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 8px 23px 6px;
+    border: 0;
+    border-radius: 22.5px;
+    outline: none;
+    background-color: #f75050;
+    cursor: pointer;
+    align-self: center;
+    justify-self: center;
+}
+
+button a{
+    color: white;
+    transition-duration: 0.2s;
+}
+
+button :hover{
+    color: grey;
+}
+
+@media (max-width: 768px) {
+    .headerContent button{
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+
+    .placeForm{
+        width: 98%;
+        height: 98%;
+        box-shadow: none;
+        border-radius: none;
+    }
+
+    .place{
+        width: 45%;
+    }
 }

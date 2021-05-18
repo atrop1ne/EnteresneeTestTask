@@ -3,8 +3,11 @@
 {% load socialaccount%}
 {% providers_media_js %}
 
-{% block title %}Hello{% endblock %}
+{% block title %}{{title}}{% endblock %}
 
 {% block content %}
-    <a href="accounts/login">Войти</a>
+    <header><button><a href="accounts/login">Войти</a></button></header>
+    <div class="notification">
+        <p>Сохраняйте воспоминания о посещённых местах</p>
+    </div>
 {% endblock %}
