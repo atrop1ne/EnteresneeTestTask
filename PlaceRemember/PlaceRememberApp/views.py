@@ -1,7 +1,6 @@
 from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
-from .forms import *
 from decimal import Decimal
 
 def index(request):
