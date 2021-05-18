@@ -60,6 +60,8 @@ header{
     padding: 90px 10px;
     background-color: white;
     padding-bottom: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .place{

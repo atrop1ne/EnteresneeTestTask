@@ -10,17 +10,64 @@
                 <div class="formContainer">
                         <form class="placeForm" method="POST">
                                 {% csrf_token %}
-                                <div class="formDescription">Добавьте воспоминание</div>
-                                {{form.name}}
-                                {{form.comment}}
-                                {{form.lat}}
-                                {{form.lng}}
+                                <div class="formDescription">Ваше воспоминание</div>
+                                <input type="text" name="name" value="{{place.name}}" class="form-control" placeholder="Введите название места"/>
+                                <textarea name="comment" class="form-control" placeholder="Добавьте описание">{{place.comment}}</textarea>
+                                <input type="text" name="lat" value="{{place.lat}}" id="id_lat" class="form-control"/>
+                                <input type="text" name="lng" value="{{place.lng}}" id="id_lng" class="form-control"/>
                                 <div id="map"></div>
                                 <button class="submitButton" type="submit">Сохранить</button>
                         </form>
                 </div>
         {% endif %}
-        <script src="static/js/script.js"></script>
+        <script>
+                function updateCoordinates(lat, lng) {
+                  document.getElementById('id_lat').value = lat;
+                  document.getElementById('id_lng').value = lng;
+                }
+              
+                initMap = function() {
+                  var map, marker;
+              
+                  var myLatlng = {
+                    lat: 55.74,
+                    lng: 37.63
+                  };
+              
+                  if (String(document.getElementById('id_lat').value).length == 0){
+                    document.getElementById('id_lat').value = myLatlng.lat;
+                    document.getElementById('id_lng').value = myLatlng.lng;
+                  }
+              
+                  else{
+                    myLatlng.lat = parseFloat(String(document.getElementById('id_lat').value).replace(',','.'));
+                    myLatlng.lng = parseFloat(String(document.getElementById('id_lng').value).replace(',','.'));
+                  }
+              
+                  map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: myLatlng
+                  });
+                
+                  marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    draggable: true
+                  });
+                
+                  marker.addListener('dragend', function(e) {
+                    var position = marker.getPosition();
+                    updateCoordinates(position.lat(), position.lng())
+                  });
+                
+                  map.addListener('click', function(e) {
+                    marker.setPosition(e.latLng);
+                    updateCoordinates(e.latLng.lat(), e.latLng.lng())
+                  });      
+                 
+                  map.panTo(myLatlng);
+                }
+        </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjsp1ggsiPdhsQTN0_Srjbaj042_IPQuA&callback=initMap"
                 type="text/javascript" async defer></script>
 {% endblock %}

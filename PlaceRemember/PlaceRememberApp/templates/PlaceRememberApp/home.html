@@ -25,7 +25,7 @@
                                         </div>
                                 </div>
                                 
-                                <button class="addPlaceButton"><a href="placeform">Добавить воспоминание</a>
+                                <button class="addPlaceButton"><a href="placeform/add">Добавить воспоминание</a>
                                 <button class="logoutButton"><a href="accounts/logout">Выйти</a></button>
                         </div>
                 </header>
@@ -35,7 +35,7 @@
                                         <figure class="place">
                                                 <h3>{{p.name}}</h3>
                                                 <figcaption>{{p.comment}}</figcaption>
-                                                <a href="edit/{{p.id}}">Изменить</a>
+                                                <a href="placeform/{{p.id}}">Изменить</a>
                                         </figure>
                                 {% endfor %}
                         </div>
